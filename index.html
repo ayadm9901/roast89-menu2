@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>روست٨٩ | Roast89 Menu</title>
+<style>
+  :root {
+    --bg: #241813;
+    --cream: #2E1F18;
+    --brown: #1A110D;
+    --brownMid: #C9A15D;
+    --gold: #C9A15D;
+    --goldSoft: #E4CE9E;
+    --mint: #8FAE96;
+    --grayLine: #4A362B;
+    --textMain: #F1E6D8;
+    --textSoft: #D9C6AE;
+    --font-display: 'SF Arabic', 'Segoe UI', 'Geeza Pro', 'Dubai', 'Noto Sans Arabic', 'Tahoma', sans-serif;
+    --font-body: 'SF Arabic', 'Segoe UI', 'Geeza Pro', 'Dubai', 'Noto Sans Arabic', 'Tahoma', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+  }
+  ::-webkit-scrollbar { height: 6px; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+  .wrap { width: 100%; max-width: 480px; }
+
+  .header {
+    background: linear-gradient(180deg, var(--brown) 0%, var(--brownMid) 100%);
+    padding: 38px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(201,161,93,0.13) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(143,174,150,0.13) 0%, transparent 40%);
+  }
+  .header-inner { position: relative; }
+  .eyebrow {
+    font-family: var(--font-display); font-weight: 900; font-size: 15px;
+    letter-spacing: 3px; color: var(--gold); margin-bottom: 6px;
+  }
+  .title-ar {
+    font-family: var(--font-display); font-weight: 900; font-size: 34px; color: #fff;
+  }
+  .subtitle {
+    font-family: var(--font-body); font-size: 13px; color: var(--goldSoft); margin-top: 6px;
+  }
+
+  .tabs {
+    display: flex; gap: 8px; padding: 18px 16px 10px;
+    overflow-x: auto; background: var(--bg);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .tab-btn {
+    flex-shrink: 0; font-family: var(--font-display); font-weight: 700; font-size: 13.5px;
+    padding: 9px 16px; border-radius: 20px; border: 1.5px solid var(--grayLine);
+    background: transparent; color: var(--textSoft); cursor: pointer; transition: all 0.2s ease;
+  }
+  .tab-btn.active { border-color: var(--gold); background: var(--gold); color: #241813; }
+
+  .content { padding: 8px 20px 20px; }
+  .section-head { text-align: center; margin: 14px 0 4px; }
+  .section-title { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--textMain); }
+  .section-sub { font-size: 11px; letter-spacing: 2px; color: var(--gold); font-weight: 700; margin-top: 2px; }
+  .ring { width: 100%; height: 18px; margin-top: 10px; }
+
+  .card {
+    background: var(--cream); border-radius: 16px; padding: 16px 16px 6px;
+    box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+    border: 1px solid var(--grayLine);
+  }
+
+  .item-row {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    padding: 14px 4px; border-bottom: 1px dashed var(--grayLine); gap: 12px;
+  }
+  .item-row:last-child { border-bottom: none; }
+  .item-name { font-family: var(--font-display); font-weight: 700; font-size: 16.5px; color: var(--textMain); }
+  .item-meta {
+    font-family: var(--font-body); font-size: 12px; color: var(--textSoft);
+    margin-top: 3px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .temp-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 16px; height: 16px; border-radius: 50%; font-size: 9px; margin-inline-start: 4px;
+  }
+  .temp-hot { border: 1.3px solid #B5654A; color: #B5654A; }
+  .temp-cold { border: 1.3px solid var(--mint); color: var(--mint); }
+  .item-price {
+    font-family: var(--font-display); font-weight: 800; font-size: 17px;
+    color: var(--gold); white-space: nowrap; padding-top: 1px;
+  }
+  .price-unit { font-size: 11px; font-weight: 600; margin-inline-start: 3px; }
+
+  .promo-card {
+    border-radius: 16px; overflow: hidden; padding: 16px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  }
+  .promo-mango { background: linear-gradient(135deg, #F5871F 0%, #FBAE55 100%); }
+  .promo-lemon { background: linear-gradient(135deg, #F6C816 0%, #FBE07A 100%); }
+  .promo-eyebrow { font-family: var(--font-body); font-size: 10.5px; font-weight: 700; opacity: 0.85; margin-bottom: 3px; }
+  .promo-name { font-family: var(--font-display); font-weight: 800; font-size: 18px; }
+  .promo-badge {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700; margin-top: 6px;
+    display: inline-block; background: rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 10px;
+  }
+  .promo-mango .promo-eyebrow, .promo-mango .promo-name, .promo-mango .promo-badge { color: #fff; }
+  .promo-lemon .promo-eyebrow, .promo-lemon .promo-name, .promo-lemon .promo-badge { color: #4A3B00; }
+  .promo-emoji { font-size: 42px; line-height: 1; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.12)); }
+
+  .divider { height: 1px; background: var(--grayLine); margin: 14px 0; }
+  .note { margin-top: 14px; font-family: var(--font-body); font-size: 11.5px; color: var(--textSoft); text-align: center; opacity: 0.75; }
+  .footer { text-align: center; padding: 10px 20px 0; font-family: var(--font-body); font-size: 11px; color: var(--textSoft); opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-inner">
+      <div class="eyebrow">ROAST 89</div>
+      <div class="title-ar">روست٨٩</div>
+      <div class="subtitle">قائمة المشروبات والحلويات</div>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+
+  <div class="content">
+    <div class="section-head">
+      <div class="section-title" id="sectionTitle"></div>
+      <div class="section-sub" id="sectionSub"></div>
+      <svg class="ring" viewBox="0 0 200 40" preserveAspectRatio="none">
+        <path d="M0,20 Q25,5 50,20 T100,20 T150,20 T200,20" fill="none" stroke="#C9A15D" stroke-width="1.4" opacity="0.55"/>
+      </svg>
+    </div>
+
+    <div class="card" id="cardBody"></div>
+
+    <div class="note" id="sweetsNote" style="display:none;">
+      * أسعار اسكوب الترافل والسعرات الحرارية تُضاف قريباً
+    </div>
+  </div>
+
+  <div class="footer">الأسعار شاملة ضريبة القيمة المضافة</div>
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id: "drip", label: "قهوة مقطرة", sub: "V60 & Drip",
+    items: [
+      { name: "قهوة اليوم", temps: "حار / بارد", price: 9, cal: null },
+      { name: "V60 كولومبي", temps: "حار / بارد", price: 17, cal: 5 },
+      { name: "V60 اثيوبي", temps: "حار / بارد", price: 17, cal: 5 },
+      { name: "V60 يمني فاخر", temps: "حار / بارد", price: 24, cal: 5 },
+      { name: "V60 صيني فاخر", temps: "حار / بارد", price: 24, cal: 5 },
+      { name: "V60 كوستاريكا فاخر", temps: "حار / بارد", price: 24, cal: 5 },
+    ],
+  },
+  {
+    id: "hot", label: "مشروبات ساخنة", sub: "Hot Drinks",
+    items: [
+      { name: "اسبريسو", price: 10, cal: 5 },
+      { name: "اسبريسو فاخر", price: 13, cal: null },
+      { name: "ميكاتو", price: 12, cal: 15 },
+      { name: "امريكانو", price: 12, cal: 10 },
+      { name: "قهوة تركية", price: 10, cal: 5 },
+      { name: "كابتشينو", price: 13, cal: 160 },
+      { name: "فلات وايت", price: 13, cal: 120 },
+      { name: "لاتيه", price: 14, cal: 160 },
+      { name: "موكا", price: 12, cal: 120 },
+      { name: "سبانيش لاتيه", price: 16, cal: 210 },
+      { name: "بستاشيو لاتيه", price: 18, cal: 225 },
+      { name: "ماتشا", price: 18, cal: 180 },
+      { name: "هوت شوكلت", price: 15, cal: 205 },
+      { name: "شاي", price: 5, cal: 15 },
+      { name: "دلة قهوة سعودية", price: 25, cal: 10 },
+      { name: "كوب قهوة سعودية", price: 5, cal: 10 },
+    ],
+  },
+  {
+    id: "cold", label: "مشروبات باردة", sub: "Iced Drinks",
+    items: [
+      { name: "آيس امريكانو", price: 14, cal: 5 },
+      { name: "كولد برو", price: 15, cal: 10 },
+      { name: "آيس لاتيه", price: 16, cal: 150 },
+      { name: "آيس سبانيش", price: 18, cal: 225 },
+      { name: "آيس بستاشيو", price: 18, cal: 220 },
+      { name: "آيس ماتشا", price: 18, cal: 190 },
+      { name: "آيس تي خوخ", price: 16, cal: 90 },
+      { name: "كركديه", price: 16, cal: 120 },
+    ],
+  },
+  {
+    id: "sweets", label: "حلويات", sub: "Desserts",
+    items: [
+      { name: "كوكيز روست", price: 9, cal: 210 },
+      { name: "بودينق", price: 15, cal: 200 },
+      { name: "كيك روست", price: 15, cal: 320 },
+      { name: "تشيز بيكان", price: 25, cal: 95 },
+      { name: "تشيز كنافة", price: 24, cal: 240 },
+      { name: "تشيز بروليه", price: 25, cal: 230 },
+      { name: "تشيز كراميل", price: 25, cal: 258 },
+      { name: "تشيز توت", price: 25, cal: 253 },
+      { name: "تيراميسو", price: 21, cal: 300 },
+      { name: "فرنش بروليه", price: 24, cal: 240 },
+      { name: "فرنش توست", price: 24, cal: 280 },
+      { name: "كرانشي تشيز", price: 27, cal: 220 },
+      { name: "كرانشي كيك", price: 27, cal: 280 },
+      { name: "دولتشي كيك", price: 24, cal: 380 },
+      { name: "حلا ليمون توت", price: 25, cal: 260 },
+      { name: "حلا المانجو", price: 24, cal: 200 },
+      { name: "بيكان روست", price: 24, cal: 320 },
+    ],
+  },
+];
+
+const TRUFFLE_ITEMS = [
+  { name: "اسكوب ترافل مانجو", flavor: "mango" },
+  { name: "اسكوب ترافل ليمون", flavor: "lemon" },
+];
+
+let activeId = SECTIONS[0].id;
+
+function renderTabs() {
+  const tabsEl = document.getElementById("tabs");
+  tabsEl.innerHTML = "";
+  SECTIONS.forEach(s => {
+    const btn = document.createElement("button");
+    btn.className = "tab-btn" + (s.id === activeId ? " active" : "");
+    btn.textContent = s.label;
+    btn.onclick = () => { activeId = s.id; render(); };
+    tabsEl.appendChild(btn);
+  });
+}
+
+function itemRowHTML(item) {
+  let metaHTML = "";
+  if (item.temps) {
+    metaHTML += `<span style="display:flex;align-items:center;">
+      <span class="temp-icon temp-hot">◐</span><span class="temp-icon temp-cold">❄</span>
+      <span style="margin-inline-start:5px;">${item.temps}</span>
+    </span>`;
+  }
+  if (item.cal) metaHTML += `<span>· ${item.cal} سعرة حرارية</span>`;
+
+  return `
+    <div class="item-row">
+      <div style="flex:1;min-width:0;">
+        <div class="item-name">${item.name}</div>
+        <div class="item-meta">${metaHTML}</div>
+      </div>
+      <div class="item-price">${item.price}<span class="price-unit">ر.س</span></div>
+    </div>`;
+}
+
+function promoCardHTML(t) {
+  const emoji = t.flavor === "mango" ? "🥭" : "🍋";
+  return `
+    <div class="promo-card promo-${t.flavor}">
+      <div>
+        <div class="promo-eyebrow">ما يكمل صيفك إلا</div>
+        <div class="promo-name">${t.name}</div>
+        <div class="promo-badge">جديد لهذا الصيف</div>
+      </div>
+      <div class="promo-emoji">${emoji}</div>
+    </div>`;
+}
+
+function render() {
+  renderTabs();
+  const section = SECTIONS.find(s => s.id === activeId);
+  document.getElementById("sectionTitle").textContent = section.label;
+  document.getElementById("sectionSub").textContent = section.sub;
+
+  let bodyHTML = "";
+  if (section.id === "sweets") {
+    bodyHTML += TRUFFLE_ITEMS.map(promoCardHTML).join("");
+    bodyHTML += `<div class="divider"></div>`;
+  }
+  bodyHTML += section.items.map(itemRowHTML).join("");
+  document.getElementById("cardBody").innerHTML = bodyHTML;
+
+  document.getElementById("sweetsNote").style.display = section.id === "sweets" ? "block" : "none";
+}
+
+render();
+</script>
+</body>
+</html>
