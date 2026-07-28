@@ -126,6 +126,158 @@
   .divider { height: 1px; background: var(--grayLine); margin: 14px 0; }
   .note { margin-top: 14px; font-family: var(--font-body); font-size: 11.5px; color: var(--textSoft); text-align: center; opacity: 0.75; }
   .footer { text-align: center; padding: 10px 20px 0; font-family: var(--font-body); font-size: 11px; color: var(--textSoft); opacity: 0.6; }
+
+  /* ============================================= */
+  /* عرض الصيف - بوب أب متحرك عند فتح الصفحة        */
+  /* ============================================= */
+  #summerOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 13, 8, 0.72);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 20px;
+  }
+  #summerOverlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #summerCard {
+    position: relative;
+    width: min(92vw, 400px);
+    background: var(--cream);
+    border: 1px solid var(--grayLine);
+    border-radius: 22px;
+    padding: 22px 18px 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    transform: scale(0.7) translateY(40px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(.34,1.56,.64,1), opacity 0.5s ease;
+  }
+  #summerOverlay.show #summerCard {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  #summerClose {
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gold);
+    color: #241813;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    z-index: 2;
+    transition: transform 0.2s;
+  }
+  #summerClose:hover { transform: scale(1.1); }
+
+  .summer-title {
+    text-align: center;
+    color: var(--textMain);
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 800;
+    margin: 4px 0 18px;
+  }
+
+  .summer-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: cardIn 0.55s ease forwards;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  }
+  .summer-item:last-of-type { margin-bottom: 0; }
+  .summer-item:nth-of-type(1) { animation-delay: 0.15s; }
+  .summer-item:nth-of-type(2) { animation-delay: 0.32s; }
+
+  @keyframes cardIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .summer-emoji {
+    font-size: 40px;
+    line-height: 1;
+    flex-shrink: 0;
+    animation: emojiFloat 2.6s ease-in-out infinite;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.12));
+  }
+  .summer-item:nth-of-type(2) .summer-emoji { animation-delay: 0.3s; }
+
+  @keyframes emojiFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-6px) rotate(6deg); }
+  }
+
+  .summer-eyebrow { font-family: var(--font-body); font-size: 10.5px; font-weight: 700; opacity: 0.85; margin-bottom: 3px; }
+  .summer-name { font-family: var(--font-display); font-weight: 800; font-size: 18px; }
+  .summer-badge {
+    font-family: var(--font-body); font-size: 11px; font-weight: 700; margin-top: 6px;
+    display: inline-block; background: rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 10px;
+  }
+
+  .summer-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+    transform: skewX(-20deg);
+    animation: shine 2.8s ease-in-out infinite;
+  }
+  .summer-item:nth-of-type(2)::after { animation-delay: 1s; }
+
+  @keyframes shine {
+    0%   { left: -60%; }
+    50%  { left: 130%; }
+    100% { left: 130%; }
+  }
+
+  #summerCta {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    background: var(--gold);
+    color: #241813;
+    border: none;
+    padding: 13px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  #summerCta:hover {
+    background: var(--goldSoft);
+    transform: translateY(-2px);
+  }
 </style>
 </head>
 <body>
@@ -158,6 +310,37 @@
   </div>
 
   <div class="footer">الأسعار شاملة ضريبة القيمة المضافة</div>
+</div>
+
+<!-- ============================================= -->
+<!-- بوب أب عرض الصيف                                -->
+<!-- ============================================= -->
+<div id="summerOverlay">
+  <div id="summerCard">
+    <button id="summerClose" aria-label="إغلاق">✕</button>
+
+    <div class="summer-title">جديد لهذا الصيف ☀️</div>
+
+    <div class="summer-item promo-mango">
+      <div>
+        <div class="summer-eyebrow">ما يكمل صيفك إلا</div>
+        <div class="summer-name">اسكوب ترافل مانجو</div>
+        <div class="summer-badge">جديد لهذا الصيف</div>
+      </div>
+      <div class="summer-emoji">🥭</div>
+    </div>
+
+    <div class="summer-item promo-lemon">
+      <div>
+        <div class="summer-eyebrow">ما يكمل صيفك إلا</div>
+        <div class="summer-name">اسكوب ترافل ليمون</div>
+        <div class="summer-badge">جديد لهذا الصيف</div>
+      </div>
+      <div class="summer-emoji">🍋</div>
+    </div>
+
+    <button id="summerCta">شاهد المزيد في المنيو</button>
+  </div>
 </div>
 
 <script>
@@ -301,6 +484,41 @@ function render() {
 }
 
 render();
+
+// ============================================= //
+// بوب أب عرض الصيف - يظهر عند فتح الصفحة          //
+// ============================================= //
+(function () {
+  const overlay = document.getElementById('summerOverlay');
+  const closeBtn = document.getElementById('summerClose');
+  const ctaBtn = document.getElementById('summerCta');
+
+  // يظهر مرة واحدة فقط في اليوم لكل زائر
+  const lastShown = localStorage.getItem('summerPopupShown');
+  const today = new Date().toDateString();
+
+  if (lastShown !== today) {
+    setTimeout(() => {
+      overlay.classList.add('show');
+    }, 500);
+    localStorage.setItem('summerPopupShown', today);
+  }
+
+  function closePopup() {
+    overlay.classList.remove('show');
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closePopup();
+  });
+  ctaBtn.addEventListener('click', () => {
+    closePopup();
+    activeId = 'sweets';
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
 </script>
 </body>
 </html>
