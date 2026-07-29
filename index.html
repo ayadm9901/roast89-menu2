@@ -119,8 +119,9 @@
     font-family: var(--font-body); font-size: 11px; font-weight: 700; margin-top: 6px;
     display: inline-block; background: rgba(255,255,255,0.3); border-radius: 20px; padding: 3px 10px;
   }
-  .promo-mango .promo-eyebrow, .promo-mango .promo-name, .promo-mango .promo-badge { color: #fff; }
-  .promo-lemon .promo-eyebrow, .promo-lemon .promo-name, .promo-lemon .promo-badge { color: #4A3B00; }
+  .promo-mango .promo-eyebrow, .promo-mango .promo-name, .promo-mango .promo-badge, .promo-mango .promo-price { color: #fff; }
+  .promo-lemon .promo-eyebrow, .promo-lemon .promo-name, .promo-lemon .promo-badge, .promo-lemon .promo-price { color: #4A3B00; }
+  .promo-price { font-weight: 800; font-size: 15px; }
   .promo-emoji { font-size: 42px; line-height: 1; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.12)); }
 
   .divider { height: 1px; background: var(--grayLine); margin: 14px 0; }
@@ -153,7 +154,7 @@
     <div class="card" id="cardBody"></div>
 
     <div class="note" id="sweetsNote" style="display:none;">
-      * أسعار سكوب الترافل والسعرات الحرارية تُضاف قريباً
+      * السعرات الحرارية لسكوب الترافل تُضاف قريباً
     </div>
   </div>
 
@@ -229,8 +230,8 @@ const SECTIONS = [
 ];
 
 const TRUFFLE_ITEMS = [
-  { name: "سكوب ترافل مانجو", flavor: "mango" },
-  { name: "سكوب ترافل ليمون", flavor: "lemon" },
+  { name: "سكوب ترافل مانجو", flavor: "mango", price: 17 },
+  { name: "سكوب ترافل ليمون", flavor: "lemon", price: 17 },
 ];
 
 let activeId = SECTIONS[0].id;
@@ -274,7 +275,10 @@ function promoCardHTML(t) {
       <div>
         <div class="promo-eyebrow">ما يكمل صيفك إلا</div>
         <div class="promo-name">${t.name}</div>
-        <div class="promo-badge">جديد لهذا الصيف</div>
+        <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+          <div class="promo-badge" style="margin-top:0;">جديد لهذا الصيف</div>
+          <div class="promo-price">${t.price}<span class="price-unit">ر.س</span></div>
+        </div>
       </div>
       <div class="promo-emoji">${emoji}</div>
     </div>`;
