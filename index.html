@@ -127,9 +127,81 @@
   .divider { height: 1px; background: var(--grayLine); margin: 14px 0; }
   .note { margin-top: 14px; font-family: var(--font-body); font-size: 11.5px; color: var(--textSoft); text-align: center; opacity: 0.75; }
   .footer { text-align: center; padding: 10px 20px 0; font-family: var(--font-body); font-size: 11px; color: var(--textSoft); opacity: 0.6; }
+
+  /* Welcome popup */
+  .popup-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; padding: 20px;
+  }
+  .popup-overlay.hidden { display: none; }
+  .popup-box {
+    background: var(--brown); border-radius: 20px; padding: 26px 22px 22px;
+    width: 100%; max-width: 400px; position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  }
+  .popup-close {
+    position: absolute; top: -14px; right: -6px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--cream); border: none; color: var(--textMain);
+    font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+  .popup-title {
+    text-align: center; color: var(--textMain); font-weight: 800; font-size: 19px;
+    margin-bottom: 20px;
+  }
+  .popup-card {
+    border-radius: 16px; overflow: hidden; padding: 16px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  }
+  .popup-card.mango { background: linear-gradient(135deg, #F5871F 0%, #FBAE55 100%); }
+  .popup-card.lemon { background: linear-gradient(135deg, #F6C816 0%, #FBE07A 100%); }
+  .popup-card-eyebrow { font-size: 11px; font-weight: 700; opacity: 0.85; margin-bottom: 4px; }
+  .popup-card-name { font-weight: 800; font-size: 19px; }
+  .popup-card-badge {
+    font-size: 11px; font-weight: 700; margin-top: 7px; display: inline-block;
+    background: rgba(255,255,255,0.3); border-radius: 20px; padding: 4px 11px;
+  }
+  .popup-card.mango .popup-card-eyebrow, .popup-card.mango .popup-card-name, .popup-card.mango .popup-card-badge { color: #fff; }
+  .popup-card.lemon .popup-card-eyebrow, .popup-card.lemon .popup-card-name, .popup-card.lemon .popup-card-badge { color: #4A3B00; }
+  .popup-emoji { font-size: 40px; line-height: 1; }
+  .popup-cta {
+    width: 100%; margin-top: 4px; background: var(--gold); color: var(--brown);
+    border: none; border-radius: 14px; padding: 15px; font-weight: 800; font-size: 15px;
+    font-family: var(--font-display); cursor: pointer;
+  }
 </style>
 </head>
 <body>
+
+<div class="popup-overlay" id="welcomePopup">
+  <div class="popup-box">
+    <button class="popup-close" id="popupClose" aria-label="إغلاق">✕</button>
+    <div class="popup-title">☀️ جديد لهذا الصيف</div>
+
+    <div class="popup-card mango">
+      <div>
+        <div class="popup-card-eyebrow">ما يكمل صيفك إلا</div>
+        <div class="popup-card-name">سكوب ترافل مانجو</div>
+        <div class="popup-card-badge">جديد لهذا الصيف</div>
+      </div>
+      <div class="popup-emoji">🥭</div>
+    </div>
+
+    <div class="popup-card lemon">
+      <div>
+        <div class="popup-card-eyebrow">ما يكمل صيفك إلا</div>
+        <div class="popup-card-name">سكوب ترافل ليمون</div>
+        <div class="popup-card-badge">جديد لهذا الصيف</div>
+      </div>
+      <div class="popup-emoji">🍋</div>
+    </div>
+
+    <button class="popup-cta" id="popupCta">شاهد المزيد في المنيو</button>
+  </div>
+</div>
+
 <div class="wrap">
 
   <div class="header">
@@ -302,6 +374,20 @@ function render() {
 }
 
 render();
+
+// Welcome popup logic
+const popup = document.getElementById("welcomePopup");
+function closePopup() { popup.classList.add("hidden"); }
+document.getElementById("popupClose").addEventListener("click", closePopup);
+document.getElementById("popupCta").addEventListener("click", () => {
+  closePopup();
+  activeId = "sweets";
+  render();
+});
+popup.addEventListener("click", (e) => {
+  if (e.target === popup) closePopup();
+});
 </script>
+
 </body>
 </html>
