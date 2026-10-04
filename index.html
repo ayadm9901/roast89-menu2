@@ -173,6 +173,26 @@
     font-family: var(--font-display); font-weight: 800; font-size: 19px; color: var(--gold);
   }
 
+  /* ---- Molten Cookies feature card: burgundy (عودي) blending into dark beige ---- */
+  .feature-card.cookie {
+    background: linear-gradient(135deg, #5C1F2E 0%, #4A3826 100%);
+    border: 1px solid rgba(201,161,93,0.3);
+  }
+  .feature-card.cookie::before {
+    background-image: radial-gradient(circle at 85% 20%, rgba(224,196,150,0.18) 0%, transparent 50%);
+  }
+  .feature-card.cookie .feature-eyebrow { color: #E4C896; }
+  .feature-card.cookie .feature-name-ar { color: #fff; }
+  .feature-card.cookie .feature-name-en { color: #E4C896; }
+  .feature-card.cookie .feature-badge { background: #E4C896; color: #3A1420; }
+  .feature-card.cookie .feature-notes { color: #F3E6D4; }
+  .feature-card.cookie .feature-origin { color: #E4C896; }
+  .feature-card.cookie .feature-tag {
+    color: #fff; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  }
+  .feature-card.cookie .feature-bottom { border-top: 1px solid rgba(255,255,255,0.15); }
+  .feature-card.cookie .feature-price { color: #E4C896; }
+
   /* Welcome popup */
   .popup-overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,0.55);
@@ -208,6 +228,17 @@
     position: absolute; inset: 0;
     background-image: radial-gradient(circle at 85% 20%, rgba(201,161,93,0.2) 0%, transparent 45%);
   }
+  .popup-feature.cookie {
+    background: linear-gradient(135deg, #5C1F2E 0%, #4A3826 100%);
+  }
+  .popup-feature.cookie::before {
+    background-image: radial-gradient(circle at 85% 20%, rgba(224,196,150,0.18) 0%, transparent 50%);
+  }
+  .popup-feature.cookie .popup-feature-eyebrow { color: #E4C896; }
+  .popup-feature.cookie .popup-feature-name { color: #fff; }
+  .popup-feature.cookie .popup-feature-en { color: #E4C896; }
+  .popup-feature.cookie .popup-feature-notes { color: #F3E6D4; }
+  .popup-feature.cookie .popup-feature-price { color: #E4C896; }
   .popup-feature-inner { position: relative; z-index: 1; }
   .popup-feature-eyebrow { font-size: 11px; font-weight: 700; color: #C9A9E4; margin-bottom: 4px; }
   .popup-feature-name { font-weight: 900; font-size: 21px; color: #fff; font-family: var(--font-display); }
@@ -231,15 +262,15 @@
     <button class="popup-close" id="popupClose" aria-label="إغلاق">✕</button>
     <div class="popup-title">✨ جديد في روست٨٩</div>
 
-    <div class="popup-feature">
+    <div class="popup-feature cookie">
       <div class="popup-feature-inner">
-        <div class="popup-feature-eyebrow">مشروب موسمي جديد</div>
-        <div class="popup-feature-name">ألفريدو</div>
-        <div class="popup-feature-en">Freddo Espresso</div>
-        <div class="popup-feature-notes">إيحاءات <b>بندق، فراولة ناضجة، وحلاوة سكر بني</b> في كل رشفة.</div>
+        <div class="popup-feature-eyebrow">حلا جديد</div>
+        <div class="popup-feature-name">مولتن كوكيز</div>
+        <div class="popup-feature-en">Molten Cookie</div>
+        <div class="popup-feature-notes">دفء يذوب فوق برودة تنعش — مولتن كوكيز ساخن مع آيسكريم ينعشك.</div>
         <div class="popup-feature-bottom">
-          <span style="font-size:11px;color:#C9A9E4;">بن <b style="color:#E4CE9E;">سلفادور — فينكا</b></span>
-          <span class="popup-feature-price">18<span style="font-size:11px;">ر.س</span></span>
+          <span></span>
+          <span class="popup-feature-price">22<span style="font-size:11px;">ر.س</span></span>
         </div>
       </div>
     </div>
@@ -358,6 +389,14 @@ const ALFREDO = {
   origin: "سلفادور — فينكا",
 };
 
+const MOLTEN = {
+  name: "مولتن كوكيز",
+  nameEn: "Molten Cookie",
+  price: 22,
+  notesHTML: "دفء يذوب فوق برودة تنعش — مولتن كوكيز ساخن مع آيسكريم ينعشك.",
+  tags: ["دافئ وبارد", "قلب ذائب"],
+};
+
 let activeId = SECTIONS[0].id;
 
 function renderTabs() {
@@ -392,24 +431,29 @@ function itemRowHTML(item) {
     </div>`;
 }
 
-function featureCardHTML() {
+function featureCardHTML(item, opts) {
+  opts = opts || {};
+  const cardClass = "feature-card" + (opts.cookie ? " cookie" : "");
+  const bottomLeft = item.origin
+    ? `<div class="feature-origin">بن <b>${item.origin}</b></div>`
+    : `<div></div>`;
   return `
-    <div class="feature-card">
+    <div class="${cardClass}">
       <div class="feature-top">
         <div>
-          <div class="feature-eyebrow">مشروب موسمي جديد</div>
-          <div class="feature-name-ar">${ALFREDO.name}</div>
-          <div class="feature-name-en">${ALFREDO.nameEn}</div>
+          <div class="feature-eyebrow">${opts.eyebrow || "جديد"}</div>
+          <div class="feature-name-ar">${item.name}</div>
+          <div class="feature-name-en">${item.nameEn}</div>
         </div>
         <div class="feature-badge">جديد</div>
       </div>
-      <div class="feature-notes">${ALFREDO.notesHTML}</div>
+      <div class="feature-notes">${item.notesHTML}</div>
       <div class="feature-tags">
-        ${ALFREDO.tags.map(t => `<span class="feature-tag">${t}</span>`).join("")}
+        ${item.tags.map(t => `<span class="feature-tag">${t}</span>`).join("")}
       </div>
       <div class="feature-bottom">
-        <div class="feature-origin">بن <b>${ALFREDO.origin}</b></div>
-        <div class="feature-price">${ALFREDO.price}<span class="price-unit">ر.س</span></div>
+        ${bottomLeft}
+        <div class="feature-price">${item.price}<span class="price-unit">ر.س</span></div>
       </div>
     </div>`;
 }
@@ -421,7 +465,13 @@ function render() {
   document.getElementById("sectionSub").textContent = section.sub;
 
   const featureSlot = document.getElementById("featureSlot");
-  featureSlot.innerHTML = section.id === "cold" ? featureCardHTML() : "";
+  if (section.id === "cold") {
+    featureSlot.innerHTML = featureCardHTML(ALFREDO, { eyebrow: "مشروب موسمي جديد" });
+  } else if (section.id === "sweets") {
+    featureSlot.innerHTML = featureCardHTML(MOLTEN, { cookie: true, eyebrow: "حلا جديد" });
+  } else {
+    featureSlot.innerHTML = "";
+  }
 
   let bodyHTML = section.items.map(itemRowHTML).join("");
   document.getElementById("cardBody").innerHTML = bodyHTML;
@@ -437,7 +487,7 @@ function closePopup() { popup.classList.add("hidden"); }
 document.getElementById("popupClose").addEventListener("click", closePopup);
 document.getElementById("popupCta").addEventListener("click", () => {
   closePopup();
-  activeId = "cold";
+  activeId = "sweets";
   render();
 });
 popup.addEventListener("click", (e) => {
